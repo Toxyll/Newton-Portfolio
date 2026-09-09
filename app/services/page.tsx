@@ -4,126 +4,190 @@ export default function Services() {
   const services = [
     {
       number: "01",
-      title: "Web Development",
+      title: "Website Development",
       description:
-        "Building modern, responsive and user-friendly websites for individuals, businesses and organizations.",
-      features: [
-        "Responsive design",
-        "Modern technologies",
-        "Mobile-friendly layouts",
-      ],
+        "I build responsive and modern websites designed to provide a smooth experience across phones, tablets and computers.",
+      technologies: ["HTML", "CSS", "JavaScript"],
     },
     {
       number: "02",
-      title: "UI Design",
+      title: "React Development",
       description:
-        "Creating clean and attractive user interfaces that provide a simple and enjoyable experience across different devices.",
-      features: [
-        "Clean layouts",
-        "User-friendly interfaces",
-        "Responsive designs",
-      ],
+        "I create interactive interfaces using reusable React components and modern frontend development practices.",
+      technologies: ["React", "JavaScript", "Tailwind CSS"],
     },
     {
       number: "03",
-      title: "Website Maintenance",
+      title: "Next.js Development",
       description:
-        "Updating, improving and maintaining websites to keep them secure, functional and up to date.",
-      features: [
-        "Content updates",
-        "Performance improvements",
-        "Technical support",
-      ],
+        "I build modern web applications using Next.js, with structured projects, responsive interfaces and scalable components.",
+      technologies: ["Next.js", "React", "TypeScript"],
+    },
+    {
+      number: "04",
+      title: "Business Websites",
+      description:
+        "I create professional websites that help businesses showcase their services, establish an online presence and connect with customers.",
+      technologies: ["Next.js", "React", "Tailwind CSS"],
+    },
+    {
+      number: "05",
+      title: "Website Improvements",
+      description:
+        "I can help improve existing websites by fixing interface issues, updating content and making pages more responsive and user-friendly.",
+      technologies: ["HTML", "CSS", "JavaScript"],
+    },
+    {
+      number: "06",
+      title: "Web Application Development",
+      description:
+        "I am developing my skills toward building complete web applications with APIs, authentication, databases and backend functionality.",
+      technologies: ["Next.js", "API", "Node.js"],
     },
   ];
 
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-20">
+    <main className="min-h-screen bg-gray-950 px-6 py-20 text-white">
       <section className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-600">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-400">
             What I Do
           </p>
 
-          <h1 className="mt-4 text-5xl font-bold tracking-tight text-gray-900 md:text-6xl">
-            My Services
+          <h1 className="mt-4 text-5xl font-bold tracking-tight md:text-6xl">
+            My <span className="text-blue-500">Services</span>
           </h1>
 
-          <p className="mt-5 text-lg leading-8 text-gray-600">
-            I build digital solutions that are modern, responsive and
-            designed to solve real-world problems.
+          <p className="mt-6 text-lg leading-8 text-gray-400 md:text-xl">
+            I use my growing development skills to create modern websites and
+            digital solutions for individuals, businesses and organizations.
           </p>
         </div>
 
-        {/* Service Cards */}
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        {/* Services Grid */}
+        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
-            <div
+            <article
               key={service.number}
-              className="group rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+              className="group rounded-2xl border border-gray-800 bg-gray-900 p-8 transition duration-300 hover:-translate-y-2 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10"
             >
               <div className="flex items-center justify-between">
-                <span className="text-sm font-bold text-blue-600">
+                <span className="text-sm font-bold text-blue-400">
                   {service.number}
                 </span>
 
-                <span className="text-2xl text-gray-300 transition group-hover:text-blue-600">
-                  →
+                <span className="text-xs uppercase tracking-widest text-gray-600">
+                  Service
                 </span>
               </div>
 
-              <h2 className="mt-8 text-2xl font-bold text-gray-900">
+              <h2 className="mt-7 text-2xl font-bold transition group-hover:text-blue-400">
                 {service.title}
               </h2>
 
-              <p className="mt-4 leading-7 text-gray-600">
+              <p className="mt-4 leading-7 text-gray-400">
                 {service.description}
               </p>
 
-              <div className="mt-7 border-t border-gray-100 pt-6">
-                <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
-                  Includes
-                </p>
-
-                <ul className="space-y-3">
-                  {service.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-center gap-2 text-gray-700"
-                    >
-                      <span className="text-blue-600">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {service.technologies.map((technology) => (
+                  <span
+                    key={technology}
+                    className="rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-300"
+                  >
+                    {technology}
+                  </span>
+                ))}
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* Call To Action */}
-        <div className="mt-16 rounded-3xl bg-gray-900 px-8 py-12 text-center md:px-16">
-          <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-400">
-            Have a Project?
-          </p>
+        {/* Development Journey */}
+        <section className="mt-20">
+          <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 md:p-12">
+            <div className="grid gap-10 md:grid-cols-2 md:items-center">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-400">
+                  My Approach
+                </p>
 
-          <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">
-            Let&apos;s Build Something Great
-          </h2>
+                <h2 className="mt-4 text-3xl font-bold md:text-4xl">
+                  From Idea to Digital Experience
+                </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-300">
-            Have an idea for a website or web application? I&apos;d love to
-            hear about it and explore how we can turn the idea into reality.
-          </p>
+                <p className="mt-5 leading-8 text-gray-400">
+                  I focus on understanding what a project needs before
+                  building it. My goal is to create interfaces that are
+                  responsive, easy to use and structured for future
+                  improvements.
+                </p>
+              </div>
 
-          <Link
-            href="/contact"
-            className="mt-8 inline-block rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700"
-          >
-            Start a Conversation
-          </Link>
-        </div>
+              <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-1">
+                <div className="rounded-xl border border-gray-800 bg-gray-950 p-5">
+                  <p className="font-bold text-blue-400">01</p>
+                  <p className="mt-2 font-semibold">Understand</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Understand the idea and requirements.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-gray-800 bg-gray-950 p-5">
+                  <p className="font-bold text-blue-400">02</p>
+                  <p className="mt-2 font-semibold">Build</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Design and develop the solution.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-gray-800 bg-gray-950 p-5">
+                  <p className="font-bold text-blue-400">03</p>
+                  <p className="mt-2 font-semibold">Improve</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Test, refine and improve the experience.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="mt-16">
+          <div className="rounded-3xl border border-blue-500/20 bg-blue-600/10 px-8 py-14 text-center md:px-16">
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-400">
+              Let&apos;s Work Together
+            </p>
+
+            <h2 className="mt-4 text-3xl font-bold md:text-5xl">
+              Have a Project in Mind?
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-400">
+              Whether you need a personal website, business website or web
+              application, let&apos;s discuss your idea and turn it into
+              something real.
+            </p>
+
+            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+              <Link
+                href="/contact"
+                className="rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20"
+              >
+                Start a Conversation
+              </Link>
+
+              <Link
+                href="/projects"
+                className="rounded-lg border border-gray-700 px-8 py-3 font-semibold text-white transition duration-300 hover:border-blue-500 hover:bg-gray-900"
+              >
+                View My Work
+              </Link>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );

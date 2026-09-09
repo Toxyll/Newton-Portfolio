@@ -2,87 +2,107 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-white">
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+    <footer className="border-t border-gray-800 bg-gray-950 text-white">
+      <div className="mx-auto max-w-6xl px-6 py-12">
+        <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}
-          <div className="text-center md:text-left">
+          <div>
             <Link
               href="/"
-              className="text-2xl font-bold tracking-tight text-gray-900"
+              className="text-2xl font-bold transition hover:text-blue-400"
             >
-              Newton<span className="text-blue-600">.</span>
+              Newton<span className="text-blue-500">.</span>
             </Link>
 
-            <p className="mt-2 text-sm text-gray-500">
-              Web Developer in Progress
+            <p className="mt-4 max-w-sm leading-7 text-gray-400">
+              Information Technology student and aspiring full-stack web
+              developer building modern and useful digital experiences.
             </p>
           </div>
 
-          {/* Navigation */}
-          <div className="flex flex-wrap justify-center gap-6">
-            <Link
-              href="/"
-              className="text-sm font-medium text-gray-600 transition hover:text-blue-600"
-            >
-              Home
-            </Link>
+          {/* Quick Links */}
+          <div>
+            <h2 className="text-lg font-semibold">Quick Links</h2>
 
-            <Link
-              href="/about"
-              className="text-sm font-medium text-gray-600 transition hover:text-blue-600"
-            >
-              About
-            </Link>
+            <div className="mt-4 flex flex-col gap-3">
+              <Link
+                href="/"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                Home
+              </Link>
 
-            <Link
-              href="/services"
-              className="text-sm font-medium text-gray-600 transition hover:text-blue-600"
-            >
-              Services
-            </Link>
+              <Link
+                href="/about"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                About
+              </Link>
 
-            <Link
-              href="/projects"
-              className="text-sm font-medium text-gray-600 transition hover:text-blue-600"
-            >
-              Projects
-            </Link>
+              <Link
+                href="/services"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                Services
+              </Link>
 
-            <Link
-              href="/contact"
-              className="text-sm font-medium text-gray-600 transition hover:text-blue-600"
-            >
-              Contact
-            </Link>
+              <Link
+                href="/projects"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                Projects
+              </Link>
+
+              <Link
+                href="/resume"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                Resume
+              </Link>
+
+              <Link
+                href="/contact"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                Contact
+              </Link>
+            </div>
           </div>
 
-          {/* Social Links */}
-          <div className="flex gap-4">
-            <a
-              href="https://github.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-blue-600 hover:text-blue-600"
-            >
-              GitHub
-            </a>
+          {/* Social */}
+          <div>
+            <h2 className="text-lg font-semibold">Connect With Me</h2>
 
-            <a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-blue-600 hover:text-blue-600"
-            >
-              LinkedIn
-            </a>
+            <div className="mt-4 flex flex-col gap-3">
+              <a
+                href="https://github.com/Toxyll"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                GitHub
+              </a>
+
+              <a
+                href="https://linkedin.com/in/toxyll-undefined-7a26b9435"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition hover:text-blue-400"
+              >
+                LinkedIn
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 border-t pt-6 text-center">
+        {/* Bottom */}
+        <div className="mt-10 border-t border-gray-800 pt-6 text-center">
           <p className="text-sm text-gray-500">
-            © 2026 Newton Toxyll. All rights reserved.
+            © {new Date().getFullYear()} Newton Toxyll. All rights reserved.
+          </p>
+
+          <p className="mt-2 text-sm text-gray-600">
+            Built with Next.js, React & Tailwind CSS.
           </p>
         </div>
       </div>

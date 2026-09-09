@@ -6,111 +6,73 @@ import { useState } from "react";
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const links = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Projects", href: "/projects" },
+    { name: "Resume", href: "/resume" },
+    { name: "Contact", href: "/contact" },
+  ];
+
   return (
-    <nav className="border-b bg-white">
-      <div className="mx-auto max-w-6xl px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo / Brand */}
-          <Link
-            href="/"
-            className="text-2xl font-bold tracking-tight text-gray-900"
-          >
-            Newton<span className="text-blue-600">.</span>
-          </Link>
+    <nav className="sticky top-0 z-50 border-b border-gray-800 bg-gray-950/95 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        {/* Logo */}
+        <Link
+          href="/"
+          onClick={() => setMenuOpen(false)}
+          className="text-xl font-bold tracking-tight text-white transition hover:text-blue-400"
+        >
+          Newton<span className="text-blue-500">.</span>
+        </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden items-center gap-6 md:flex">
+        {/* Desktop Navigation */}
+        <div className="hidden items-center gap-8 md:flex">
+          {links.map((link) => (
             <Link
-              href="/"
-              className="font-medium text-gray-700 transition hover:text-blue-600"
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-gray-400 transition hover:text-blue-400"
             >
-              Home
+              {link.name}
             </Link>
-
-            <Link
-              href="/about"
-              className="font-medium text-gray-700 transition hover:text-blue-600"
-            >
-              About
-            </Link>
-
-            <Link
-              href="/services"
-              className="font-medium text-gray-700 transition hover:text-blue-600"
-            >
-              Services
-            </Link>
-
-            <Link
-              href="/projects"
-              className="font-medium text-gray-700 transition hover:text-blue-600"
-            >
-              Projects
-            </Link>
-
-            <Link
-              href="/contact"
-              className="rounded-lg bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700"
-            >
-              Contact
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="text-2xl text-gray-800 md:hidden"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? "✕" : "☰"}
-          </button>
+          ))}
         </div>
 
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="mt-4 flex flex-col gap-4 border-t pt-4 md:hidden">
-            <Link
-              href="/"
-              onClick={() => setMenuOpen(false)}
-              className="font-medium text-gray-700"
-            >
-              Home
-            </Link>
-
-            <Link
-              href="/about"
-              onClick={() => setMenuOpen(false)}
-              className="font-medium text-gray-700"
-            >
-              About
-            </Link>
-
-            <Link
-              href="/services"
-              onClick={() => setMenuOpen(false)}
-              className="font-medium text-gray-700"
-            >
-              Services
-            </Link>
-
-            <Link
-              href="/projects"
-              onClick={() => setMenuOpen(false)}
-              className="font-medium text-gray-700"
-            >
-              Projects
-            </Link>
-
-            <Link
-              href="/contact"
-              onClick={() => setMenuOpen(false)}
-              className="font-medium text-blue-600"
-            >
-              Contact
-            </Link>
-          </div>
-        )}
+        {/* Mobile Menu Button */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          className="rounded-lg border border-gray-800 bg-gray-900 px-3 py-2 text-gray-300 transition hover:border-blue-500 hover:text-blue-400 md:hidden"
+        >
+          {menuOpen ? (
+            <span className="text-xl">✕</span>
+          ) : (
+            <span className="text-xl">☰</span>
+          )}
+        </button>
       </div>
+
+      {/* Mobile Navigation */}
+      {menuOpen && (
+        <div className="border-t border-gray-800 bg-gray-950 px-6 py-4 md:hidden">
+          <div className="flex flex-col gap-2">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="rounded-lg px-4 py-3 font-medium text-gray-300 transition hover:bg-gray-900 hover:text-blue-400"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

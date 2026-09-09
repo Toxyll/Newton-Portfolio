@@ -1,25 +1,32 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setSubmitted(false);
-    setError("");
-    setSending(true);
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const message = formData.get("message");
+    setLoading(true);
+    setStatus("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -27,161 +34,263 @@ export default function Contact() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-        }),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send message.");
-      }
+      if (response.ok) {
+        setStatus("Message sent successfully!");
 
-      setSubmitted(true);
-      form.reset();
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Something went wrong."
-      );
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        setStatus(data.error || "Failed to send message.");
+      }
+    } catch {
+      setStatus("Something went wrong. Please try again.");
     } finally {
-      setSending(false);
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-20">
-      <section className="mx-auto max-w-5xl">
-        <div className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-600">
+    <main className="min-h-screen bg-gray-950 px-6 py-20 text-white">
+      <section className="mx-auto max-w-6xl">
+        {/* Header */}
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-400">
             Get In Touch
           </p>
 
-          <h1 className="mt-4 text-5xl font-bold tracking-tight text-gray-900 md:text-6xl">
-            Let&apos;s Talk
+          <h1 className="mt-4 text-5xl font-bold tracking-tight md:text-6xl">
+            Let&apos;s <span className="text-blue-500">Talk.</span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-600">
-            Have a project idea, question or opportunity? Send me a message
-            and I&apos;ll get back to you.
+          <p className="mt-6 text-lg leading-8 text-gray-400 md:text-xl">
+            Have a project idea, opportunity or question? Send me a message
+            and let&apos;s start a conversation.
           </p>
         </div>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-5">
-          <div className="rounded-2xl bg-gray-900 p-8 text-white md:col-span-2">
-            <p className="text-sm font-bold uppercase tracking-wider text-blue-400">
-              Contact Information
-            </p>
+        {/* Contact Content */}
+        <div className="mt-16 grid gap-8 lg:grid-cols-5">
+          {/* Information */}
+          <div className="lg:col-span-2">
+            <div className="rounded-2xl border border-gray-800 bg-gray-900 p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">
+                Contact Me
+              </p>
 
-            <h2 className="mt-4 text-2xl font-bold">
-              Let&apos;s build something together.
-            </h2>
+              <h2 className="mt-4 text-3xl font-bold">
+                Let&apos;s Build Something
+              </h2>
 
-            <p className="mt-4 leading-7 text-gray-400">
-              I&apos;m always interested in new projects, ideas and
-              opportunities to learn and create.
-            </p>
+              <p className="mt-5 leading-8 text-gray-400">
+                Whether you need a personal website, business website or a
+                custom web application, I&apos;m interested in discussing new
+                ideas and opportunities.
+              </p>
 
-            <div className="mt-8 space-y-5">
-              <div>
-                <p className="text-sm text-gray-500">Role</p>
-                <p className="mt-1 font-medium">Web Developer in Progress</p>
+              {/* Contact Details */}
+              <div className="mt-10 space-y-7">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-gray-600">
+                    Email
+                  </p>
+
+                  <p className="mt-2 text-gray-300">
+                    toxylltechgit@gmail.com
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-gray-600">
+                    Location
+                  </p>
+
+                  <p className="mt-2 text-gray-300">Kenya</p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-gray-600">
+                    Availability
+                  </p>
+
+                  <p className="mt-2 leading-7 text-gray-300">
+                    Open to projects, collaborations and development
+                    opportunities.
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <p className="text-sm text-gray-500">Focus</p>
-                <p className="mt-1 font-medium">Full-Stack Web Development</p>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-500">Availability</p>
-                <p className="mt-1 font-medium text-blue-400">
-                  Open to opportunities
+              {/* Social Links */}
+              <div className="mt-10 border-t border-gray-800 pt-8">
+                <p className="text-sm font-semibold text-gray-400">
+                  Find Me Online
                 </p>
+
+                <div className="mt-4 flex gap-4">
+                  <a
+                    href="https://github.com/Toxyll"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg border border-gray-700 px-4 py-2 text-sm font-medium text-gray-300 transition hover:border-blue-500 hover:text-blue-400"
+                  >
+                    GitHub ↗
+                  </a>
+
+                  <a
+                    href="https://linkedin.com/in/toxyll-undefined-7a26b9435"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg border border-gray-700 px-4 py-2 text-sm font-medium text-gray-300 transition hover:border-blue-500 hover:text-blue-400"
+                  >
+                    LinkedIn ↗
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:col-span-3 md:p-10">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="mb-2 block font-semibold text-gray-800"
-                >
-                  Name
-                </label>
+          {/* Contact Form */}
+          <div className="lg:col-span-3">
+            <div className="rounded-2xl border border-gray-800 bg-gray-900 p-8 md:p-10">
+              <div className="mb-8">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">
+                  Send a Message
+                </p>
 
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Enter your name"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                  required
-                />
+                <h2 className="mt-3 text-3xl font-bold">
+                  Tell Me About Your Idea
+                </h2>
+
+                <p className="mt-3 text-gray-500">
+                  Fill in the form below and I&apos;ll receive your message by
+                  email.
+                </p>
               </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="mb-2 block font-semibold text-gray-800"
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name */}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="mb-2 block text-sm font-medium text-gray-300"
+                  >
+                    Your Name
+                  </label>
+
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                    required
+                    className="w-full rounded-lg border border-gray-700 bg-gray-950 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-2 block text-sm font-medium text-gray-300"
+                  >
+                    Email Address
+                  </label>
+
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    required
+                    className="w-full rounded-lg border border-gray-700 bg-gray-950 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="mb-2 block text-sm font-medium text-gray-300"
+                  >
+                    Message
+                  </label>
+
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project or idea..."
+                    rows={7}
+                    required
+                    className="w-full resize-none rounded-lg border border-gray-700 bg-gray-950 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full rounded-lg bg-blue-600 px-6 py-3.5 font-semibold text-white transition duration-300 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Email
-                </label>
+                  {loading ? "Sending..." : "Send Message"}
+                </button>
 
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                  required
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="mb-2 block font-semibold text-gray-800"
-                >
-                  Message
-                </label>
-
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Tell me about your project or question..."
-                  rows={6}
-                  className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                  required
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={sending}
-                className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {sending ? "Sending..." : "Send Message"}
-              </button>
-            </form>
-
-            {submitted && (
-              <p className="mt-6 rounded-lg bg-green-50 p-4 text-center font-semibold text-green-700">
-                Message sent successfully! 🎉
-              </p>
-            )}
-
-            {error && (
-              <p className="mt-6 rounded-lg bg-red-50 p-4 text-center font-semibold text-red-700">
-                {error}
-              </p>
-            )}
+                {/* Status */}
+                {status && (
+                  <div className="rounded-lg border border-gray-700 bg-gray-950 px-4 py-3 text-center text-sm text-gray-300">
+                    {status}
+                  </div>
+                )}
+              </form>
+            </div>
           </div>
         </div>
+
+        {/* Bottom CTA */}
+        <section className="mt-16">
+          <div className="rounded-3xl border border-blue-500/20 bg-blue-600/10 px-8 py-14 text-center md:px-16">
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-blue-400">
+              Start Something New
+            </p>
+
+            <h2 className="mt-4 text-3xl font-bold md:text-4xl">
+              Ready to Turn an Idea Into Reality?
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-400">
+              I&apos;m always interested in learning, building and working on
+              meaningful technology projects.
+            </p>
+
+            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+              <Link
+                href="/projects"
+                className="rounded-lg border border-gray-700 px-8 py-3 font-semibold text-white transition duration-300 hover:border-blue-500 hover:bg-gray-900"
+              >
+                View My Projects
+              </Link>
+
+              <Link
+                href="/resume"
+                className="rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+              >
+                View My Resume
+              </Link>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );
