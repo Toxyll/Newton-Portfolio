@@ -95,7 +95,8 @@ export default function Resume() {
               </Link>
 
               <a
-                href="#"
+                href="/Newton_Obara_Ongori_CV.pdf"
+                download
                 className="rounded-lg border border-gray-700 px-6 py-3 text-center font-semibold text-gray-300 transition hover:border-blue-500 hover:bg-gray-800 hover:text-white"
               >
                 Download CV
